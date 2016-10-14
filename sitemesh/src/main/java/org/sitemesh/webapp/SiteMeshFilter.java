@@ -86,6 +86,9 @@ public class SiteMeshFilter extends ContentBufferingFilter {
         if (content == null) {
             return false;
         }
+        if (response.containsHeader("Content-Length")) {
+            response.setContentLength(-1);
+        }
         try {
             content.getData().writeValueTo(response.getWriter());
         } catch (IllegalStateException ise) {  // If getOutputStream() has already been called
